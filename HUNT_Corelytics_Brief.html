@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corelytics x HUNT Real Estate ERA — Executive Intelligence Brief</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0a0f0f;
+  --bg2: #0c1212;
+  --card: #0f1717;
+  --card2: #121c1c;
+  --border: #1a2424;
+  --border2: #223030;
+  --teal: #00D4C8;
+  --teal-dim: rgba(0,212,200,0.10);
+  --teal-glow: rgba(0,212,200,0.07);
+  --teal-border: rgba(0,212,200,0.35);
+  --white: #eef3f3;
+  --gray: #8a9a9a;
+  --gray2: #4a5a5a;
+  --red: #e05555;
+  --red-dim: rgba(224,85,85,0.07);
+  --green: #00c896;
+  --yellow: #f0c040;
+  --font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body { background:var(--bg); color:var(--white); font-family:var(--font); line-height:1.65; -webkit-font-smoothing:antialiased; }
+
+/* NAV */
+nav {
+  position:sticky; top:0; z-index:200;
+  background:rgba(10,15,15,0.97);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center;
+  padding:0 2rem; overflow-x:auto; scrollbar-width:none; gap:0;
+  height:48px;
+}
+nav::-webkit-scrollbar { display:none; }
+.nav-brand {
+  font-size:0.65rem; font-weight:800; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--teal);
+  white-space:nowrap; padding-right:1.5rem;
+  border-right:1px solid var(--border); margin-right:0.75rem;
+  flex-shrink:0;
+}
+nav a {
+  color:var(--gray); text-decoration:none;
+  font-size:0.68rem; font-weight:600; letter-spacing:0.08em;
+  text-transform:uppercase; white-space:nowrap;
+  padding:0 0.8rem; height:48px; display:flex; align-items:center;
+  border-bottom:2px solid transparent; transition:all 0.2s;
+}
+nav a:hover { color:var(--white); border-bottom-color:var(--teal); }
+
+/* HERO */
+.hero {
+  max-width:1200px; margin:0 auto;
+  padding:5rem 2rem 4rem; border-bottom:1px solid var(--border);
+}
+.hero-eyebrow {
+  font-size:0.65rem; font-weight:700; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--teal); margin-bottom:1.5rem;
+  display:flex; align-items:center; gap:0.75rem;
+}
+.hero-eyebrow span { color:var(--gray2); }
+.hero h1 {
+  font-size:clamp(2.2rem,4.5vw,3.8rem); font-weight:900;
+  letter-spacing:-0.025em; line-height:1.08;
+  color:var(--white); margin-bottom:1.5rem;
+}
+.hero h1 em { color:var(--teal); font-style:normal; }
+.hero-sub {
+  font-size:1.05rem; color:var(--gray);
+  max-width:680px; margin-bottom:3rem; line-height:1.7;
+}
+.hero-kpis {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px; background:var(--border);
+  border:1px solid var(--border); border-radius:10px;
+  overflow:hidden; max-width:900px;
+}
+.hero-kpi { background:var(--card); padding:1.25rem 1.5rem; }
+.hero-kpi-n {
+  font-size:1.9rem; font-weight:900; color:var(--teal);
+  letter-spacing:-0.03em; line-height:1;
+}
+.hero-kpi-l {
+  font-size:0.62rem; color:var(--gray);
+  text-transform:uppercase; letter-spacing:0.1em; margin-top:0.4rem;
+}
+.hero-kpi-s { font-size:0.58rem; color:var(--gray2); margin-top:0.2rem; }
+.confidential {
+  display:inline-flex; align-items:center; gap:0.4rem;
+  font-size:0.58rem; font-weight:700; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--gray2);
+  background:var(--card); border:1px solid var(--border);
+  padding:0.3rem 0.75rem; border-radius:3px; margin-bottom:2rem;
+}
+
+/* SECTIONS */
+section {
+  max-width:1200px; margin:0 auto;
+  padding:5rem 2rem; border-bottom:1px solid var(--border);
+}
+.sec-num {
+  font-size:0.6rem; font-weight:800; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--teal); margin-bottom:0.6rem;
+}
+.sec-title {
+  font-size:clamp(1.8rem,3vw,2.6rem); font-weight:900;
+  letter-spacing:-0.025em; line-height:1.12;
+  color:var(--white); margin-bottom:0.75rem;
+}
+.sec-sub {
+  font-size:1rem; color:var(--gray);
+  max-width:720px; margin-bottom:2.5rem; line-height:1.7;
+}
+.lead {
+  font-size:0.975rem; color:var(--white); line-height:1.75;
+  max-width:760px; margin-bottom:2rem;
+}
+p { margin-bottom:1rem; }
+p:last-child { margin-bottom:0; }
+strong { color:var(--white); font-weight:700; }
+
+/* STAT GRID */
+.stat-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:1rem; margin-bottom:2rem;
+}
+.stat-block {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:8px; padding:1.25rem 1.5rem;
+}
+.stat-block.hi { border-color:var(--teal-border); background:var(--teal-glow); }
+.stat-block.lo { border-color:rgba(224,85,85,0.3); background:var(--red-dim); }
+.stat-block.warn { border-color:rgba(240,192,64,0.3); background:rgba(240,192,64,0.04); }
+.stat-n { font-size:2.2rem; font-weight:900; color:var(--teal); letter-spacing:-0.035em; line-height:1; }
+.stat-n.r { color:var(--red); }
+.stat-n.w { color:var(--white); }
+.stat-n.y { color:var(--yellow); }
+.stat-n.g { color:var(--green); }
+.stat-l { font-size:0.68rem; color:var(--gray); text-transform:uppercase; letter-spacing:0.1em; margin-top:0.4rem; }
+.stat-foot { font-size:0.62rem; color:var(--gray2); margin-top:0.3rem; }
+
+/* CARDS */
+.card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:8px; padding:1.5rem;
+}
+.card + .card { margin-top:1rem; }
+.card-title {
+  font-size:0.65rem; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--gray); margin-bottom:1rem;
+  padding-bottom:0.75rem; border-bottom:1px solid var(--border);
+}
+
+/* GRIDS */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start; }
+.three-col { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+@media(max-width:768px){.two-col,.three-col{grid-template-columns:1fr;}}
+
+/* TABLES */
+.tbl-wrap { overflow-x:auto; border-radius:8px; border:1px solid var(--border); }
+table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+thead th {
+  background:#0c1818; color:var(--gray);
+  font-size:0.6rem; text-transform:uppercase;
+  letter-spacing:0.12em; padding:0.85rem 1rem;
+  text-align:left; border-bottom:1px solid var(--border);
+  white-space:nowrap;
+}
+tbody td {
+  padding:0.9rem 1rem; border-bottom:1px solid var(--border);
+  color:var(--white); vertical-align:middle;
+}
+tbody tr:last-child td { border-bottom:none; }
+tbody tr:hover td { background:rgba(255,255,255,0.015); }
+.td-t { color:var(--teal); font-weight:700; }
+.td-r { color:var(--red); }
+.td-g { color:var(--green); }
+.td-gy { color:var(--gray); }
+.td-y { color:var(--yellow); }
+.num { font-variant-numeric:tabular-nums; }
+.row-hi td { background:var(--teal-glow) !important; }
+.row-warn td { background:var(--red-dim) !important; }
+
+/* SOURCE TAGS */
+.src {
+  display:inline-block; font-size:0.58rem; font-weight:600;
+  letter-spacing:0.08em; text-transform:uppercase;
+  padding:0.15rem 0.5rem; border-radius:3px; margin-left:0.4rem;
+  vertical-align:middle;
+}
+.src-v { background:rgba(138,154,154,0.1); color:var(--gray); border:1px solid rgba(138,154,154,0.2); }
+.src-p { background:rgba(240,192,64,0.12); color:var(--yellow); border:1px solid rgba(240,192,64,0.25); }
+.footnotes {
+  font-size:0.68rem; color:var(--gray2); line-height:1.6;
+  margin-top:1.5rem; padding-top:1rem;
+  border-top:1px solid var(--border);
+}
+
+/* CALLOUTS */
+.callout {
+  border-left:3px solid var(--teal); background:var(--teal-glow);
+  padding:1.25rem 1.5rem; border-radius:0 8px 8px 0; margin:1.5rem 0;
+}
+.callout.warn { border-left-color:var(--red); background:var(--red-dim); }
+.callout.neutral { border-left-color:var(--gray2); background:var(--card); }
+.callout-n {
+  font-size:2.5rem; font-weight:900; color:var(--teal);
+  letter-spacing:-0.04em; line-height:1;
+}
+.callout.warn .callout-n { color:var(--red); }
+.callout-l { font-size:0.9rem; color:var(--white); margin-top:0.35rem; }
+.callout-note { font-size:0.68rem; color:var(--gray); margin-top:0.3rem; }
+
+/* CHART CONTAINERS */
+.chart-box {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:8px; padding:1.5rem;
+}
+.chart-label {
+  font-size:0.62rem; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--gray); margin-bottom:1rem;
+}
+.chart-canvas-wrap { position:relative; }
+
+/* COMPARE PANELS */
+.compare {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:1px; background:var(--border);
+  border:1px solid var(--border); border-radius:8px; overflow:hidden;
+}
+@media(max-width:600px){.compare{grid-template-columns:1fr;}}
+.compare-col { background:var(--card); padding:1.5rem; }
+.compare-col.active { background:var(--teal-glow); }
+.compare-hd {
+  font-size:0.62rem; font-weight:700; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--gray);
+  padding-bottom:0.75rem; border-bottom:1px solid var(--border); margin-bottom:1rem;
+}
+.compare-hd.teal { color:var(--teal); border-bottom-color:var(--teal-border); }
+.compare-item {
+  font-size:0.85rem; color:var(--gray); padding:0.35rem 0 0.35rem 1.4rem;
+  position:relative; line-height:1.45;
+}
+.compare-item::before { content:'x'; position:absolute; left:0; color:var(--red); font-weight:700; font-size:0.8rem; }
+.compare-item.ok { color:var(--white); }
+.compare-item.ok::before { content:'v'; color:var(--teal); }
+
+/* SCENARIO BLOCKS */
+.scenarios {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border);
+  border:1px solid var(--border); border-radius:8px; overflow:hidden;
+  margin-top:1.5rem;
+}
+@media(max-width:600px){.scenarios{grid-template-columns:1fr;}}
+.sc-col { background:var(--card); padding:1.5rem; }
+.sc-col.best { background:rgba(0,200,150,0.05); }
+.sc-col.base { background:var(--teal-glow); }
+.sc-col.worst { background:var(--red-dim); }
+.sc-lbl {
+  font-size:0.6rem; font-weight:800; letter-spacing:0.18em;
+  text-transform:uppercase; margin-bottom:0.85rem;
+}
+.sc-col.best .sc-lbl { color:var(--green); }
+.sc-col.base .sc-lbl { color:var(--teal); }
+.sc-col.worst .sc-lbl { color:var(--red); }
+.sc-num {
+  font-size:2rem; font-weight:900; letter-spacing:-0.035em;
+  line-height:1; margin-bottom:0.5rem;
+}
+.sc-col.best .sc-num { color:var(--green); }
+.sc-col.base .sc-num { color:var(--teal); }
+.sc-col.worst .sc-num { color:var(--red); }
+.sc-row { font-size:0.78rem; color:var(--gray); padding:0.3rem 0; border-top:1px solid var(--border); margin-top:0.4rem; }
+.sc-row span { color:var(--white); float:right; font-weight:600; }
+.sc-col.best .sc-row span { color:var(--green); }
+.sc-col.worst .sc-row span { color:var(--red); }
+
+/* TIMELINE */
+.timeline { padding-left:1.75rem; position:relative; }
+.timeline::before { content:''; position:absolute; left:0.3rem; top:0.5rem; bottom:0; width:2px; background:var(--border2); }
+.tl-item { position:relative; padding-bottom:1.5rem; }
+.tl-item::before {
+  content:''; position:absolute; left:-1.5rem; top:0.4rem;
+  width:8px; height:8px; border-radius:50%; background:var(--teal);
+  box-shadow:0 0 0 3px var(--teal-glow);
+}
+.tl-week {
+  font-size:0.6rem; font-weight:800; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--teal); margin-bottom:0.25rem;
+}
+.tl-text { font-size:0.9rem; color:var(--white); font-weight:600; }
+.tl-sub { font-size:0.78rem; color:var(--gray); margin-top:0.2rem; }
+
+/* PROGRESS */
+.prog-bar { height:5px; background:var(--border); border-radius:3px; overflow:hidden; margin-top:0.4rem; }
+.prog-fill { height:100%; border-radius:3px; background:var(--teal); }
+.prog-fill.low { background:var(--red); }
+.prog-fill.mid { background:var(--yellow); }
+
+/* CTA SECTION */
+.cta-hero {
+  background:linear-gradient(135deg,#0c1a1a 0%,#0f2020 50%,#0c1a1a 100%);
+  border:1px solid var(--teal-border); border-radius:12px;
+  padding:3.5rem 3rem; text-align:center; margin-top:2rem;
+}
+.cta-hero h2 {
+  font-size:clamp(1.6rem,3vw,2.4rem); font-weight:900;
+  letter-spacing:-0.02em; color:var(--white); margin-bottom:1rem;
+}
+.cta-hero h2 em { color:var(--teal); font-style:normal; }
+.cta-hero p { color:var(--gray); max-width:580px; margin:0 auto 2rem; font-size:1rem; }
+.btn {
+  display:inline-block; font-size:0.8rem; font-weight:800;
+  letter-spacing:0.1em; text-transform:uppercase;
+  padding:0.9rem 2.5rem; border-radius:6px;
+  text-decoration:none; transition:opacity 0.2s; margin:0.4rem;
+}
+.btn-solid { background:var(--teal); color:#0a0f0f; }
+.btn-solid:hover { opacity:0.85; }
+.btn-outline { background:transparent; color:var(--teal); border:1px solid var(--teal-border); }
+.btn-outline:hover { background:var(--teal-dim); }
+.contact-block {
+  margin-top:2rem; padding-top:2rem;
+  border-top:1px solid var(--border);
+  display:grid; grid-template-columns:1fr 1fr; gap:1rem;
+}
+@media(max-width:600px){.contact-block{grid-template-columns:1fr;}}
+.contact-item { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:1.25rem; text-align:left; }
+.contact-role { font-size:0.6rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gray); margin-bottom:0.5rem; }
+.contact-name { font-size:1.05rem; font-weight:800; color:var(--white); }
+.contact-detail { font-size:0.8rem; color:var(--teal); margin-top:0.3rem; }
+
+/* FOOTER */
+footer {
+  background:var(--bg2); border-top:1px solid var(--border);
+  padding:2.5rem 2rem; text-align:center;
+}
+footer p { font-size:0.68rem; color:var(--gray2); line-height:1.9; }
+
+/* UTILS */
+.divider { border:none; border-top:1px solid var(--border); margin:2rem 0; }
+.mt1{margin-top:0.5rem} .mt2{margin-top:1rem} .mt3{margin-top:1.5rem} .mt4{margin-top:2rem}
+.mb2{margin-bottom:1rem} .mb3{margin-bottom:1.5rem} .mb4{margin-bottom:2rem}
+.teal{color:var(--teal)} .gray{color:var(--gray)} .red{color:var(--red)} .green{color:var(--green)}
+.w-full{width:100%} .text-sm{font-size:0.875rem} .text-xs{font-size:0.75rem}
+.badge {
+  display:inline-block; font-size:0.58rem; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase;
+  padding:0.18rem 0.55rem; border-radius:3px; margin-left:0.4rem;
+}
+.badge-teal { background:var(--teal-dim); color:var(--teal); border:1px solid var(--teal-border); }
+.badge-warn { background:rgba(224,85,85,0.1); color:var(--red); border:1px solid rgba(224,85,85,0.25); }
+.badge-proj { background:rgba(240,192,64,0.1); color:var(--yellow); border:1px solid rgba(240,192,64,0.25); }
+
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Corelytics &times; HUNT ERA</div>
+  <a href="#s1">Scale</a>
+  <a href="#s2">Revenue</a>
+  <a href="#s3">Agents</a>
+  <a href="#s4">Regions</a>
+  <a href="#s5">Acquisitions</a>
+  <a href="#s6">Competition</a>
+  <a href="#s7">Forecast</a>
+  <a href="#s8">Implementation</a>
+  <a href="#s9">The Ask</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="confidential">Confidential &bull; Prepared for Charlie Hunt, CEO</div>
+  <div class="hero-eyebrow">
+    Corelytics x HUNT Real Estate ERA
+    <span>&bull;</span>
+    <span>Executive Intelligence Brief</span>
+    <span>&bull;</span>
+    <span>June 2026</span>
+  </div>
+  <h1>HUNT operates at a scale<br>its financial infrastructure<br>was not built for. <em>Yet.</em></h1>
+  <p class="hero-sub">
+    $3.65 billion in volume. 54 offices. 1,800 agents. Six geographic markets. Four affiliated service divisions.
+    This brief quantifies the cost of managing that complexity without real-time financial visibility — and models what changes when you have it.
+  </p>
+  <div class="hero-kpis">
+    <div class="hero-kpi">
+      <div class="hero-kpi-n">$3.65B</div>
+      <div class="hero-kpi-l">2024 Sales Volume</div>
+      <div class="hero-kpi-s">ERA Key: +$639M on top</div>
+    </div>
+    <div class="hero-kpi">
+      <div class="hero-kpi-n">11,953</div>
+      <div class="hero-kpi-l">Transaction Sides</div>
+      <div class="hero-kpi-s">RealTrends #29 nationally, 2025</div>
+    </div>
+    <div class="hero-kpi">
+      <div class="hero-kpi-n">54</div>
+      <div class="hero-kpi-l">Residential Offices</div>
+      <div class="hero-kpi-s">6 geographic markets</div>
+    </div>
+    <div class="hero-kpi">
+      <div class="hero-kpi-n">#1</div>
+      <div class="hero-kpi-l">ERA Network Ranking</div>
+      <div class="hero-kpi-s">7th consecutive year, volume &amp; units</div>
+    </div>
+    <div class="hero-kpi">
+      <div class="hero-kpi-n">1,800</div>
+      <div class="hero-kpi-l">Sales Professionals</div>
+      <div class="hero-kpi-s">Across NY, MA, and AZ</div>
+    </div>
+    <div class="hero-kpi">
+      <div class="hero-kpi-n">113</div>
+      <div class="hero-kpi-l">Years in Business</div>
+      <div class="hero-kpi-s">Founded 1911, Buffalo NY</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<section id="s1">
+  <div class="sec-num">Section 01</div>
+  <h2 class="sec-title">The Scale Problem</h2>
+  <p class="sec-sub">At $3.65 billion in volume across 54 offices and 1,800 agents, HUNT carries financial complexity that most brokerages never confront. The question is whether the reporting infrastructure moves as fast as the business does.</p>
+
+  <p class="lead">
+    Each of HUNT's 54 residential offices operates as its own profit center. Each carries its own cost structure: lease obligations, staffing costs, marketing spend, technology overhead, and agent incentives. Aggregating 54 independent P&L centers into a coherent consolidated picture is not a reporting problem. It is a timing problem. And at HUNT's scale, timing costs money.
+  </p>
+  <p class="lead">
+    The industry standard for multi-office brokerage financial reporting is a 30-to-60-day lag from close of month to consolidated results. For a company generating roughly $300 million in monthly transaction volume during peak season, that lag means decisions made in October are grounded in August's numbers.
+  </p>
+
+  <div class="stat-grid">
+    <div class="stat-block">
+      <div class="stat-n">54</div>
+      <div class="stat-l">Independent P&L Centers</div>
+      <div class="stat-foot">Each requiring monthly reconciliation and rollup</div>
+    </div>
+    <div class="stat-block warn">
+      <div class="stat-n y">476</div>
+      <div class="stat-l">Est. Management Hours Per Month</div>
+      <div class="stat-foot">Consumed by manual financial reporting across org levels <span class="src src-p">Model Projection</span></div>
+    </div>
+    <div class="stat-block lo">
+      <div class="stat-n r">30-60</div>
+      <div class="stat-l">Day Data Lag, Typical</div>
+      <div class="stat-foot">Industry benchmark for multi-office brokerage consolidation <span class="src src-v">Industry Standard</span></div>
+    </div>
+    <div class="stat-block lo">
+      <div class="stat-n r">$498K</div>
+      <div class="stat-l">Est. Annual Reporting Overhead</div>
+      <div class="stat-foot">Management time at blended $85/hr across all org levels <span class="src src-p">Model Projection</span></div>
+    </div>
+  </div>
+
+  <div class="two-col mt4">
+    <div>
+      <div class="card">
+        <div class="card-title">How This Works Today: The Manual Rollup</div>
+        <p class="text-sm gray" style="margin-bottom:1rem;">In a traditional multi-office structure, monthly financial consolidation follows a predictable chain:</p>
+        <div class="compare" style="border:none;gap:0;background:transparent;">
+          <div style="background:transparent;padding:0;">
+            <div style="font-size:0.78rem;color:var(--white);padding:0.6rem 0;border-bottom:1px solid var(--border);">1. Office managers compile monthly summaries from their own records</div>
+            <div style="font-size:0.78rem;color:var(--white);padding:0.6rem 0;border-bottom:1px solid var(--border);">2. Regional directors collect, reconcile, and reformat 8-10 office reports</div>
+            <div style="font-size:0.78rem;color:var(--white);padding:0.6rem 0;border-bottom:1px solid var(--border);">3. Finance team consolidates 6 regional inputs against the accounting system</div>
+            <div style="font-size:0.78rem;color:var(--white);padding:0.6rem 0;border-bottom:1px solid var(--border);">4. CFO reviews, flags discrepancies, requests corrections</div>
+            <div style="font-size:0.78rem;color:var(--gray);padding:0.6rem 0;">5. Board-level view delivered: 45-60 days post-month-close</div>
+          </div>
+        </div>
+        <div class="callout warn mt3">
+          <div class="callout-l">A CEO making a Q4 staffing or expansion decision in November is looking at September's actual data. At HUNT's scale, that blind spot has a price tag.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="chart-box">
+        <div class="chart-label">Estimated Monthly Reporting Hours by Org Level <span class="src src-p">Model Projection</span></div>
+        <div class="chart-canvas-wrap" style="height:260px;">
+          <canvas id="reportingChart"></canvas>
+        </div>
+        <div class="footnotes">
+          Assumes 54 office managers at 8 hrs/month, 6 regional directors at 6 hrs/month, and finance team at 20 hrs/month for consolidation and CFO review. At blended management cost of $85/hr.
+        </div>
+      </div>
+      <div class="callout mt3">
+        <div class="callout-n">$498K</div>
+        <div class="callout-l">Estimated annual cost of management time allocated to financial reporting infrastructure at HUNT's current scale</div>
+        <div class="callout-note">Model projection based on industry-standard reporting hours and blended management compensation benchmarks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 -->
+<section id="s2">
+  <div class="sec-num">Section 02</div>
+  <h2 class="sec-title">Revenue Leak Detection</h2>
+  <p class="sec-sub">HUNT operates four affiliated service divisions alongside residential brokerage. Industry data suggests the gap between current attachment rates and best-in-class performance represents more than $13 million in annual revenue currently flowing outside HUNT's ecosystem.</p>
+
+  <p class="lead">
+    HUNT Mortgage, Network Title Agency of NY, HUNT Insurance Agency, and HUNT Commercial each exist to capture a larger share of value from every transaction. That strategy only works if attachment rates are tracked in real time, underperforming office-by-office patterns are visible, and the company knows immediately when a specific region is losing referral volume. Without live financial visibility, attachment shortfalls compound for months before appearing in a quarterly review.
+  </p>
+
+  <div class="tbl-wrap mb4">
+    <table>
+      <thead>
+        <tr>
+          <th>Affiliated Service</th>
+          <th>Annual Transactions</th>
+          <th>Industry Avg Attach <span class="src src-v">Reported</span></th>
+          <th>HUNT Est. Attach <span class="src src-p">Model</span></th>
+          <th>Best-in-Class <span class="src src-v">Reported</span></th>
+          <th>Revenue Per Event <span class="src src-p">Model</span></th>
+          <th>Revenue at Best-in-Class <span class="src src-p">Projection</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>HUNT Mortgage</strong></td>
+          <td class="num">11,953</td>
+          <td class="num td-gy">28%</td>
+          <td class="num td-y">35%</td>
+          <td class="num td-g">65%</td>
+          <td class="num">$2,500 / loan</td>
+          <td class="num td-t">$19.4M</td>
+        </tr>
+        <tr>
+          <td><strong>Network Title Agency</strong></td>
+          <td class="num">11,953</td>
+          <td class="num td-gy">32%</td>
+          <td class="num td-y">40%</td>
+          <td class="num td-g">68%</td>
+          <td class="num">$1,200 / closing</td>
+          <td class="num td-t">$9.8M</td>
+        </tr>
+        <tr>
+          <td><strong>HUNT Insurance</strong></td>
+          <td class="num">11,953</td>
+          <td class="num td-gy">14%</td>
+          <td class="num td-y">18%</td>
+          <td class="num td-g">38%</td>
+          <td class="num">$210 / policy</td>
+          <td class="num td-t">$954K</td>
+        </tr>
+        <tr class="row-hi">
+          <td><strong>Combined Gap (Est. vs. Best-in-Class)</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="num td-t"><strong>+$13.5M / yr</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="chart-box">
+        <div class="chart-label">Attachment Rate Comparison by Service Line <span class="src src-p">Model Projection</span></div>
+        <div class="chart-canvas-wrap" style="height:280px;">
+          <canvas id="attachChart"></canvas>
+        </div>
+      </div>
+      <div class="footnotes mt2">
+        Avg loan revenue based on $305K avg HUNT transaction price, 80% LTV, 0.82% origination equivalent. Title and insurance per-event revenue from industry benchmarks. Attach rates: industry avg from LeanProp/HousingWire 2024; HUNT estimated attach is modeled from affiliated brokerage benchmarks. Sources: LeanProp (2024), HousingWire (2024), AccountTech (2024).
+      </div>
+    </div>
+    <div>
+      <div class="callout">
+        <div class="callout-n">$299K</div>
+        <div class="callout-l">Additional annual mortgage revenue from a single 1% improvement in attachment rate across HUNT's 11,953 transactions</div>
+        <div class="callout-note">1% improvement = 120 additional loans at $2,500 revenue per origination. Model projection.</div>
+      </div>
+      <div class="card mt3">
+        <div class="card-title">Where Corelytics Identifies the Leak</div>
+        <p class="text-sm" style="color:var(--gray);margin-bottom:0.75rem;">Attachment leakage is not uniform. It concentrates in specific offices, specific agents, and specific time periods. The pattern only becomes visible when transaction data is compared against affiliated service revenue in real time.</p>
+        <div style="font-size:0.85rem;margin-top:0.75rem;">
+          <div style="padding:0.5rem 0;border-bottom:1px solid var(--border);color:var(--white);">Office A closes 40 transactions. HUNT Mortgage originates 6 loans. That 15% attach rate surfaces immediately, not at quarter-end.</div>
+          <div style="padding:0.5rem 0;border-bottom:1px solid var(--border);color:var(--white);">Agent in Rochester refers every buyer to an outside lender. The referral pattern flags within 30 days, not 90.</div>
+          <div style="padding:0.5rem 0;color:var(--white);">The platform connects directly to your accounting system. No manual entry. No waiting for a regional summary.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 -->
+<section id="s3">
+  <div class="sec-num">Section 03</div>
+  <h2 class="sec-title">Agent Productivity Intelligence</h2>
+  <p class="sec-sub">HUNT's 1,800 agents do not produce uniformly. The top 20% drive the majority of volume. At the bottom of the distribution, agents below the breakeven threshold cost the brokerage more in overhead than they generate in revenue.</p>
+
+  <p class="lead">
+    Every large brokerage contends with production concentration. The Pareto pattern in residential real estate is well documented: the top 20% of agents in a traditional brokerage consistently drive 65-80% of closed volume. At HUNT's scale, that means approximately 360 agents are responsible for roughly $2.4 billion of the $3.65 billion total. The remaining 1,440 agents account for $1.25 billion. Within that lower tier, a meaningful cohort operates below the point where the brokerage recovers its per-agent overhead.
+  </p>
+
+  <div class="stat-grid">
+    <div class="stat-block hi">
+      <div class="stat-n">$11.1M</div>
+      <div class="stat-l">Avg Volume, Top 10% of Agents</div>
+      <div class="stat-foot">180 agents, ~55% of total volume <span class="src src-p">Model Projection</span></div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-n w">$893K</div>
+      <div class="stat-l">Avg Volume, Middle 50% of Agents</div>
+      <div class="stat-foot">900 agents, near breakeven zone <span class="src src-p">Model Projection</span></div>
+    </div>
+    <div class="stat-block lo">
+      <div class="stat-n r">$203K</div>
+      <div class="stat-l">Avg Volume, Bottom 30% of Agents</div>
+      <div class="stat-foot">540 agents, likely below overhead breakeven <span class="src src-p">Model Projection</span></div>
+    </div>
+    <div class="stat-block lo">
+      <div class="stat-n r">$840K</div>
+      <div class="stat-l">Est. Breakeven Volume Per Agent</div>
+      <div class="stat-foot">Based on $700/mo overhead at 2.7% blended commission, 35% broker share <span class="src src-p">Model Projection</span></div>
+    </div>
+  </div>
+
+  <div class="two-col mt4">
+    <div>
+      <div class="chart-box">
+        <div class="chart-label">Estimated Agent Production Distribution Across 1,800 Agents <span class="src src-p">Model Projection</span></div>
+        <div class="chart-canvas-wrap" style="height:300px;">
+          <canvas id="agentChart"></canvas>
+        </div>
+        <div class="footnotes mt2">
+          Distribution modeled from industry benchmarks: NAR 2024 agent production surveys, AccountTech brokerage performance data. Top 10%: $8.4M&ndash;$15M avg. Next 10%: $3-5M avg. Middle 50%: $500K&ndash;$1.8M avg. Bottom 30%: under $350K avg.
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-title">The Cost of a 6-Month Detection Delay</div>
+        <p class="text-sm" style="color:var(--gray);margin-bottom:1.25rem;">An agent generating $300K annually at a 35% broker split and 2.7% commission produces $2,835 in annual broker revenue. Against $8,400 in allocated annual overhead, that agent carries a $5,565 annual deficit. Detection at month 3 versus month 9 represents a $2,782 difference per agent.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Detection Point</th>
+                <th>Overhead Paid</th>
+                <th>Broker Revenue</th>
+                <th>Net Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Week 3 flag</td>
+                <td class="num td-gy">$700</td>
+                <td class="num td-gy">$218</td>
+                <td class="num td-r">-$482</td>
+              </tr>
+              <tr>
+                <td>Month 3 review</td>
+                <td class="num td-gy">$2,100</td>
+                <td class="num td-gy">$654</td>
+                <td class="num td-r">-$1,446</td>
+              </tr>
+              <tr class="row-warn">
+                <td>Month 6 quarterly</td>
+                <td class="num">$4,200</td>
+                <td class="num">$1,308</td>
+                <td class="num td-r"><strong>-$2,892</strong></td>
+              </tr>
+              <tr class="row-warn">
+                <td>Month 9 year-end</td>
+                <td class="num">$6,300</td>
+                <td class="num">$1,961</td>
+                <td class="num td-r"><strong>-$4,339</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout warn mt3">
+          <div class="callout-n">$1.2M+</div>
+          <div class="callout-l">Estimated annual overhead drag from below-breakeven agents when detection relies on quarterly reviews rather than continuous financial monitoring</div>
+          <div class="callout-note">Assumes 200 agents below $840K breakeven threshold. Model projection.</div>
+        </div>
+      </div>
+      <div class="card mt3">
+        <div class="card-title">What Live Agent Financial Performance Looks Like</div>
+        <p class="text-sm" style="color:var(--gray);">The platform pulls broker revenue, affiliated service attachment, and overhead allocation per agent across all 54 offices in real time. A manager in Buffalo does not need to wait for the Rochester regional report to know that three agents in that office have crossed below the production floor this month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 -->
+<section id="s4">
+  <div class="sec-num">Section 04</div>
+  <h2 class="sec-title">Multi-Region Financial Visibility</h2>
+  <p class="sec-sub">HUNT operates across six distinct geographic markets with meaningfully different price points, velocity, and cost structures. A CEO today is likely reviewing this through six separate regional reports, each arriving 30 to 60 days after the numbers were real.</p>
+
+  <p class="lead">
+    Charlie Hunt has stepped into a brokerage that spans Buffalo and Phoenix, Rochester and Boston, Syracuse and Albany. Each market behaves differently. Buffalo ran 16 days on market in April 2026. Phoenix is cooling. Massachusetts carries median prices more than double Rochester's. The financial profile of each region is not interchangeable, and decisions made at the enterprise level need to reflect those differences in real time, not in retrospect.
+  </p>
+
+  <div class="tbl-wrap mb4">
+    <table>
+      <thead>
+        <tr>
+          <th>Region</th>
+          <th>Median Home Price <span class="src src-v">Reported</span></th>
+          <th>Market Velocity</th>
+          <th>YoY Price Change <span class="src src-v">Reported</span></th>
+          <th>Market Temp</th>
+          <th>Current Data Lag</th>
+          <th>With Live Visibility</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Buffalo / Niagara</strong></td>
+          <td class="num td-t">$205K</td>
+          <td class="num">16 days avg DOM</td>
+          <td class="num td-g">+7.8%</td>
+          <td><span style="color:var(--red);font-weight:700;">Very Hot</span></td>
+          <td class="td-r">30-60 days</td>
+          <td class="td-t">Live</td>
+        </tr>
+        <tr>
+          <td><strong>Rochester</strong></td>
+          <td class="num td-t">$155K</td>
+          <td class="num">Score 78/100</td>
+          <td class="num td-g">+19.2%</td>
+          <td><span style="color:var(--red);font-weight:700;">Very Hot</span></td>
+          <td class="td-r">30-60 days</td>
+          <td class="td-t">Live</td>
+        </tr>
+        <tr>
+          <td><strong>Central / Northern NY</strong></td>
+          <td class="num td-t">$158K</td>
+          <td class="num">Score 75/100</td>
+          <td class="num td-g">+12.0%</td>
+          <td><span style="color:var(--yellow);font-weight:700;">Hot</span></td>
+          <td class="td-r">30-60 days</td>
+          <td class="td-t">Live</td>
+        </tr>
+        <tr>
+          <td><strong>Capital Region</strong></td>
+          <td class="num td-t">$310K</td>
+          <td class="num">Active</td>
+          <td class="num td-g">+8.0%</td>
+          <td><span style="color:var(--yellow);font-weight:700;">Hot</span></td>
+          <td class="td-r">30-60 days</td>
+          <td class="td-t">Live</td>
+        </tr>
+        <tr>
+          <td><strong>Massachusetts (ERA Key)</strong></td>
+          <td class="num td-t">$540K</td>
+          <td class="num">Competitive</td>
+          <td class="num td-g">+4.0%</td>
+          <td><span style="color:var(--yellow);font-weight:700;">Competitive</span></td>
+          <td class="td-r">30-60 days</td>
+          <td class="td-t">Live</td>
+        </tr>
+        <tr>
+          <td><strong>Phoenix, AZ</strong></td>
+          <td class="num td-t">$455K</td>
+          <td class="num">Normalizing</td>
+          <td class="num td-gy">+2.0%</td>
+          <td><span style="color:var(--gray);font-weight:700;">Stable</span></td>
+          <td class="td-r">30-60 days</td>
+          <td class="td-t">Live</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="compare">
+        <div class="compare-col">
+          <div class="compare-hd">How Charlie Sees This Today</div>
+          <div class="compare-item">Monthly reports from six regional managers, arriving at different times</div>
+          <div class="compare-item">No standardized format across regions, formats vary by manager</div>
+          <div class="compare-item">Discrepancies require follow-up calls before numbers can be trusted</div>
+          <div class="compare-item">P&L variance between Buffalo and Phoenix not visible until 45+ days post-month</div>
+          <div class="compare-item">Underperforming offices in one region invisible while others look healthy</div>
+          <div class="compare-item">Capital allocation decisions made on last quarter's regional picture</div>
+        </div>
+        <div class="compare-col active">
+          <div class="compare-hd teal">With Live Financial Visibility</div>
+          <div class="compare-item ok">One consolidated view across all six markets, updated continuously from the accounting system</div>
+          <div class="compare-item ok">Standardized metrics: revenue per transaction, overhead per office, attached service rate by market</div>
+          <div class="compare-item ok">Variance flags surface automatically: Phoenix diverging from plan appears within the reporting period</div>
+          <div class="compare-item ok">Regional P&L comparison available at any point in the month, not just at close</div>
+          <div class="compare-item ok">Underperforming offices identified in week two, not in the next quarterly review</div>
+          <div class="compare-item ok">Expansion and staffing decisions grounded in current-month trajectory, not trailing actuals</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="callout">
+        <div class="callout-n">4th Gen</div>
+        <div class="callout-l">Charlie Hunt inherits six markets, four divisions, and 54 offices without the institutional memory that comes from years in the chair. A live consolidated financial view is not a convenience. It is how a new CEO gets oriented fast and stays ahead of the business instead of behind it.</div>
+        <div class="callout-note">Leadership succession: Peter Hunt to Charlie Hunt, Q4 2024. Source: Call It Closed, 2024.</div>
+      </div>
+      <div class="card mt3">
+        <div class="card-title">The One-View Standard for a Multi-Market CEO</div>
+        <p class="text-sm" style="color:var(--gray);">The platform connects directly to HUNT's accounting system. No regional submissions. No format reconciliation. The consolidated financial view reflects every market simultaneously, updated as transactions close and expenses post. What used to require a week of staff time to compile surfaces in minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 -->
+<section id="s5">
+  <div class="sec-num">Section 05</div>
+  <h2 class="sec-title">Acquisition Due Diligence</h2>
+  <p class="sec-sub">HUNT has grown through acquisition. ERA Key Realty Services in Massachusetts, Conway Real Estate in 2022, Procopio Real Estate, and others. Each deal carries financial risk that is proportional to the quality of the financial data available during diligence.</p>
+
+  <p class="lead">
+    A $3 million acquisition decision made on self-reported financials carries fundamentally different risk than the same decision made with direct visibility into the target's accounting system. The difference is not philosophical. It is measurable in time, advisor fees, and the probability of overpaying. At HUNT's acquisition cadence, the compounding value of faster, more accurate diligence is significant.
+  </p>
+
+  <div class="two-col mb4">
+    <div>
+      <div class="card">
+        <div class="card-title">Traditional Due Diligence Timeline</div>
+        <div class="timeline mt2">
+          <div class="tl-item">
+            <div class="tl-week">Weeks 1-3</div>
+            <div class="tl-text">Initial document request and collection</div>
+            <div class="tl-sub">Seller provides P&L summaries, agent production reports, lease schedules. All self-reported.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-week">Weeks 4-6</div>
+            <div class="tl-text">Financial review and spot-check</div>
+            <div class="tl-sub">Accountants reconcile documents against bank statements. Inconsistencies require additional requests.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-week">Weeks 7-9</div>
+            <div class="tl-text">Valuation modeling</div>
+            <div class="tl-sub">Team builds projection models from verified (but static) data. One revision cycle if numbers shift.</div>
+          </div>
+          <div class="tl-item" style="padding-bottom:0">
+            <div class="tl-week">Weeks 10-12</div>
+            <div class="tl-text">Final negotiation and close</div>
+            <div class="tl-sub">Terms finalized on data that is already 60-90 days old. Risk of undisclosed liabilities remains.</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.78rem;">
+          <span class="gray">Total timeline:</span>
+          <span class="red" style="font-weight:700;">10-12 weeks</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-title">Due Diligence With Live Accounting Access</div>
+        <div class="timeline mt2">
+          <div class="tl-item">
+            <div class="tl-week">Days 1-3</div>
+            <div class="tl-text">Read-only accounting system access granted by target</div>
+            <div class="tl-sub">Live balance sheet, GL data, and transaction history pulled directly. No self-reported documents required.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-week">Days 4-10</div>
+            <div class="tl-text">Automated benchmarking against industry peers</div>
+            <div class="tl-sub">Target's margin profile, overhead structure, and revenue per agent compared against 673 industry benchmarks instantly.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-week">Days 11-18</div>
+            <div class="tl-text">Scenario modeling from verified live data</div>
+            <div class="tl-sub">Best-case, worst-case, and base projections built from actual numbers rather than seller representations.</div>
+          </div>
+          <div class="tl-item" style="padding-bottom:0">
+            <div class="tl-week">Weeks 3-4</div>
+            <div class="tl-text">Negotiation and close</div>
+            <div class="tl-sub">Terms backed by current financial reality, not trailing summaries. Valuation confidence materially higher.</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.78rem;">
+          <span class="gray">Total timeline:</span>
+          <span class="teal" style="font-weight:700;">3-4 weeks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="three-col">
+    <div class="callout">
+      <div class="callout-n">6-8 wks</div>
+      <div class="callout-l">Time saved per acquisition on due diligence process alone</div>
+      <div class="callout-note">At $500-800/hr advisor rates, 6 weeks represents $60-96K in advisor time avoided per deal. Model projection.</div>
+    </div>
+    <div class="callout">
+      <div class="callout-n">10%</div>
+      <div class="callout-l">Risk of overpaying on a $3M acquisition based on self-reported financials alone</div>
+      <div class="callout-note">$300K exposure per transaction where due diligence relies on seller-provided documents. Model projection.</div>
+    </div>
+    <div class="callout">
+      <div class="callout-n">3x+</div>
+      <div class="callout-l">More deals evaluated per year at the compressed due diligence timeline</div>
+      <div class="callout-note">Faster diligence cycles allow HUNT to evaluate more acquisition candidates in the same calendar period.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 -->
+<section id="s6">
+  <div class="sec-num">Section 06</div>
+  <h2 class="sec-title">Competitive Position</h2>
+  <p class="sec-sub">HUNT is the #1 ERA brokerage in the country for the seventh consecutive year. That ranking is in transaction volume and units. The more important question is whether HUNT's financial efficiency metrics match that ranking.</p>
+
+  <p class="lead">
+    National rankings measure output. Financial benchmarking measures efficiency. HUNT can be the top ERA franchise by volume and still carry above-market overhead per transaction, below-peer revenue per agent, or a cost structure that erodes margin in ways that don't appear in the ERA rankings. Knowing which it is requires a comparison standard. Industry benchmarking against 673 normalized peer groups is how that question gets answered continuously rather than at year-end.
+  </p>
+
+  <div class="tbl-wrap mb4">
+    <table>
+      <thead>
+        <tr>
+          <th>Brokerage</th>
+          <th>2025 National Rank (by Sides)</th>
+          <th>Transaction Sides <span class="src src-v">RealTrends 2025</span></th>
+          <th>Sales Volume</th>
+          <th>Scale Context</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>eXp Realty</strong></td>
+          <td class="num">#1</td>
+          <td class="num">350,119</td>
+          <td class="num">$152.66B</td>
+          <td class="td-gy">Virtual model, national</td>
+        </tr>
+        <tr>
+          <td><strong>Anywhere Advisors</strong></td>
+          <td class="num">#2</td>
+          <td class="num">246,728</td>
+          <td class="num">$183.81B</td>
+          <td class="td-gy">Coldwell Banker, C21, ERA parent</td>
+        </tr>
+        <tr>
+          <td><strong>Compass</strong></td>
+          <td class="num">#3</td>
+          <td class="num">228,785</td>
+          <td class="num">$231.04B</td>
+          <td class="td-gy">Tech-forward, major metros</td>
+        </tr>
+        <tr>
+          <td><strong>Hanna Holdings (Howard Hanna)</strong></td>
+          <td class="num">#5</td>
+          <td class="num">92,154</td>
+          <td class="num">$33.74B</td>
+          <td class="td-gy">Largest in NY state by agent count</td>
+        </tr>
+        <tr class="row-hi">
+          <td><strong>HUNT Real Estate ERA</strong></td>
+          <td class="num td-t">#29</td>
+          <td class="num td-t">11,953</td>
+          <td class="num td-t">$3.65B</td>
+          <td class="td-t">#1 ERA network, WNY dominant</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="chart-box">
+        <div class="chart-label">National Market Position by Transaction Volume <span class="src src-v">RealTrends Verified 2025</span></div>
+        <div class="chart-canvas-wrap" style="height:280px;">
+          <canvas id="compChart"></canvas>
+        </div>
+        <div class="footnotes mt2">Source: RealTrends Verified 2025 Brokerage Rankings. Howard Hanna figure: Hanna Holdings entity. Note: eXp operates nationally as a virtual brokerage; Compass and Anywhere are enterprise-scale with significantly broader national footprints. HUNT's dominance is geographic, not by national size.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-title">The Efficiency Question: Where National Rankings Fall Short</div>
+        <p class="text-sm" style="color:var(--gray);margin-bottom:1rem;">Howard Hanna now holds the position of largest brokerage in New York State by agent count and homes sold. That is HUNT's home market. The competitive question is not whether HUNT can match Howard Hanna's national scale. It is whether HUNT runs a more financially efficient brokerage in the markets they share.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Efficiency Metric</th>
+                <th>Industry Benchmark <span class="src src-v">AccountTech 2024</span></th>
+                <th>Best-in-Class</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Net profit per side</td>
+                <td class="num td-gy">$589 (profitable brokerages)</td>
+                <td class="num td-g">$900+</td>
+              </tr>
+              <tr>
+                <td>EBITDA margin</td>
+                <td class="num td-gy">-3% to +3% (50% of brokerages)</td>
+                <td class="num td-g">6-10%</td>
+              </tr>
+              <tr>
+                <td>Revenue per agent per year</td>
+                <td class="num td-gy">$1,767 net (6-month, profitable)</td>
+                <td class="num td-g">$3,500+</td>
+              </tr>
+              <tr>
+                <td>Loss per side (unprofitable)</td>
+                <td class="num td-r">-$462 per side</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout mt3">
+          <div class="callout-l">Corelytics benchmarks HUNT against 673 normalized industry peer groups. Charlie sees in real time whether HUNT is in the top quartile of financial efficiency for a brokerage its size, or whether a competitor is quietly running leaner.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7 -->
+<section id="s7">
+  <div class="sec-num">Section 07</div>
+  <h2 class="sec-title">The 12-Month Forecast</h2>
+  <p class="sec-sub">At HUNT's scale, a 5% variance in projected annual revenue equals $18.25 million. Knowing 90 days in advance which direction you are tracking is not a forecasting exercise. It is a capital allocation and cost management tool worth multiples of what it costs.</p>
+
+  <p class="lead">
+    WNY housing markets are running some of the fastest appreciation rates in the country: Buffalo up 7.8% year-over-year in April 2026, Rochester up 19.2% in January 2025. Those numbers create opportunity, but they also mask the risk of a correction. A 5% downward move in transaction volume at HUNT's scale removes more than $182 million in production from the pipeline. With 88% accurate 12-month scenario forecasting, HUNT knows whether to add offices or hold headcount long before the number materializes in a quarterly P&L.
+  </p>
+
+  <div class="scenarios">
+    <div class="sc-col best">
+      <div class="sc-lbl">Best Case</div>
+      <div class="sc-num">$48.8M</div>
+      <div class="sc-row">Est. Brokerage Revenue <span>+8.5% vs. base</span></div>
+      <div class="sc-row">WNY market growth <span>+8% YoY</span></div>
+      <div class="sc-row">Attachment improvement <span>+5 pts</span></div>
+      <div class="sc-row">Agent net adds <span>+40</span></div>
+      <div class="sc-row">EBITDA expansion <span>+2-3 pts</span></div>
+    </div>
+    <div class="sc-col base">
+      <div class="sc-lbl">Base Case</div>
+      <div class="sc-num">$46.5M</div>
+      <div class="sc-row">Est. Brokerage Revenue <span>Current trajectory</span></div>
+      <div class="sc-row">WNY market growth <span>+3-4% YoY</span></div>
+      <div class="sc-row">Attachment rates <span>Hold steady</span></div>
+      <div class="sc-row">Agent count <span>Stable</span></div>
+      <div class="sc-row">EBITDA <span>Flat to +1 pt</span></div>
+    </div>
+    <div class="sc-col worst">
+      <div class="sc-lbl">Worst Case</div>
+      <div class="sc-num">$43.1M</div>
+      <div class="sc-row">Est. Brokerage Revenue <span>-7.3% vs. base</span></div>
+      <div class="sc-row">Market correction <span>-4 to -5%</span></div>
+      <div class="sc-row">Rate environment <span>Tightening</span></div>
+      <div class="sc-row">Expense rigidity <span>No advance cuts</span></div>
+      <div class="sc-row">Margin compression <span>-2 to -3 pts</span></div>
+    </div>
+  </div>
+
+  <div class="callout warn mt3">
+    <div class="callout-n">$3.7M</div>
+    <div class="callout-l">Estimated value of early-warning capability across one adverse scenario: the spread between worst-case unmitigated and worst-case with 90-day advance notice and 50% cost response rate</div>
+    <div class="callout-note">At $2,400/year platform cost, this represents a 1,542x return on a single avoided downside scenario. Model projection.</div>
+  </div>
+
+  <div class="chart-box mt4">
+    <div class="chart-label">12-Month Cumulative Revenue Projection: Three Scenarios with Seasonal Cadence <span class="src src-p">Model Projection</span></div>
+    <div class="chart-canvas-wrap" style="height:320px;">
+      <canvas id="projChart"></canvas>
+    </div>
+    <div class="footnotes mt2">
+      Base case uses estimated $46.5M annual brokerage revenue modeled from $3.65B volume at 2.7% blended commission and 35% broker share plus affiliated service revenue. Seasonal distribution reflects NAR transaction seasonality benchmarks (Q1: 18%, Q2: 27%, Q3: 30%, Q4: 25%). Best case applies +5% monthly uplift. Worst case applies -7.3% monthly reduction. All figures are model projections. Source methodology: NAR 2024 seasonality data, AccountTech 2024 brokerage margin benchmarks.
+    </div>
+  </div>
+
+  <div class="stat-grid mt4">
+    <div class="stat-block hi">
+      <div class="stat-n">88%</div>
+      <div class="stat-l">Forecast Accuracy</div>
+      <div class="stat-foot">Claimed 12-month scenario accuracy across Corelytics platform deployments</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-n w">90 days</div>
+      <div class="stat-l">Forward Visibility Window</div>
+      <div class="stat-foot">Predictive flags surface before problems become expensive to reverse</div>
+    </div>
+    <div class="stat-block warn">
+      <div class="stat-n y">$18.25M</div>
+      <div class="stat-l">Revenue at Risk Per 5% Variance</div>
+      <div class="stat-foot">At $3.65B base volume, a 5% production swing = $182.5M in volume at stake <span class="src src-p">Model</span></div>
+    </div>
+    <div class="stat-block hi">
+      <div class="stat-n">$2,400</div>
+      <div class="stat-l">Annual Platform Cost</div>
+      <div class="stat-foot">Under $200/month. Cancel anytime. No per-seat pricing.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8 -->
+<section id="s8">
+  <div class="sec-num">Section 08</div>
+  <h2 class="sec-title">Implementation Reality</h2>
+  <p class="sec-sub">This is what Charlie's CFO needs to do to get HUNT's financial data live in the platform. Not a six-month IT project. Not a custom integration. A connection to the accounting system HUNT already uses.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <div class="card-title">Relevant Accounting Integrations for HUNT's Scale</div>
+        <p class="text-sm gray" style="margin-bottom:1.25rem;">At 54 offices and $3.65B in volume, HUNT likely operates on one of the following:</p>
+        <div style="font-size:0.85rem;">
+          <div style="padding:0.65rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--white);font-weight:600;">Microsoft Dynamics 365 Business Central</span>
+            <span class="badge badge-teal">Direct Integration</span>
+          </div>
+          <div style="padding:0.65rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--white);font-weight:600;">Sage Intacct / Sage 300</span>
+            <span class="badge badge-teal">Direct Integration</span>
+          </div>
+          <div style="padding:0.65rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--white);font-weight:600;">QuickBooks Enterprise / Desktop</span>
+            <span class="badge badge-teal">Direct Integration</span>
+          </div>
+          <div style="padding:0.65rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--white);font-weight:600;">Acumatica</span>
+            <span class="badge badge-teal">Direct Integration</span>
+          </div>
+          <div style="padding:0.65rem 0;display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--white);font-weight:600;">Infor M3 / M4</span>
+            <span class="badge badge-teal">Direct Integration</span>
+          </div>
+        </div>
+        <div class="callout neutral mt3">
+          <div class="callout-l" style="color:var(--gray);font-size:0.85rem;">The platform pulls live balance sheet and general ledger data via API. No manual exports. No CSV uploads. No middleware. The CFO's team connects the accounting system once. The data flows from there.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-title">From Zero to First Insight: Week-by-Week</div>
+        <div class="timeline mt2">
+          <div class="tl-item">
+            <div class="tl-week">Week 1</div>
+            <div class="tl-text">Accounting System Connection</div>
+            <div class="tl-sub">CFO or controller completes API authorization. Historical data import begins. No IT project. No custom development.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-week">Week 2</div>
+            <div class="tl-text">Baseline Established</div>
+            <div class="tl-sub">12-24 months of historical financial data imported. Trend lines, seasonality patterns, and cost ratios identified automatically.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-week">Week 3</div>
+            <div class="tl-text">First Consolidated View Live</div>
+            <div class="tl-sub">All 54 offices visible in one consolidated financial view. Benchmarking against industry peers activates.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-week">Month 2</div>
+            <div class="tl-text">Predictive Models Calibrated</div>
+            <div class="tl-sub">Scenario forecasts calibrated to HUNT's specific historical patterns. Best and worst-case ranges generated.</div>
+          </div>
+          <div class="tl-item" style="padding-bottom:0">
+            <div class="tl-week">Month 3+</div>
+            <div class="tl-text">Full Forward Visibility Active</div>
+            <div class="tl-sub">Real-time flags, 12-month projections, and automated anomaly detection running continuously. The CFO's reporting cycle compresses from weeks to minutes per month.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-grid mt4">
+    <div class="stat-block hi">
+      <div class="stat-n">Week 1</div>
+      <div class="stat-l">Time to First Live Data</div>
+      <div class="stat-foot">API connection to existing accounting system, no custom development required</div>
+    </div>
+    <div class="stat-block hi">
+      <div class="stat-n">$200</div>
+      <div class="stat-l">Per Month, All-In</div>
+      <div class="stat-foot">Under $200/month. Cancel anytime. No term commitment required.</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-n w">Minutes</div>
+      <div class="stat-l">Monthly Reporting Time</div>
+      <div class="stat-foot">vs. the current 476-hour monthly management burden across the organization</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-n w">0</div>
+      <div class="stat-l">Manual Data Entry Required</div>
+      <div class="stat-foot">Data pulls directly from the accounting system. No spreadsheets, no exports, no reconciliation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9 -->
+<section id="s9">
+  <div class="sec-num">Section 09</div>
+  <h2 class="sec-title">The Ask</h2>
+  <p class="sec-sub">Seven days. Live data. No commitment required. See HUNT's own numbers in the platform before deciding anything.</p>
+
+  <p class="lead">
+    Every projection in this brief is modeled from industry benchmarks applied to HUNT's known numbers. The only way to know what the actual figures look like is to connect HUNT's accounting system and see the real data. That takes less than a week and costs nothing to try.
+  </p>
+
+  <div class="cta-hero">
+    <h2>Start with seven days of <em>live data.</em></h2>
+    <p>No spreadsheets. No sales process. Connect HUNT's accounting system and see the consolidated financial view in week one. Cancel before day eight and it cost nothing.</p>
+    <a href="https://dashboard.corelytics.com/?mode=register&affiliate=SEVENDAYDEMO" class="btn btn-solid" target="_blank" rel="noopener">Start 7-Day Live Demo</a>
+    <a href="mailto:steve@venturisfinancial.com" class="btn btn-outline">Contact Steve Buck Directly</a>
+
+    <div class="contact-block">
+      <div class="contact-item">
+        <div class="contact-role">Enterprise Discussion</div>
+        <div class="contact-name">Steve Buck</div>
+        <div style="font-size:0.8rem;color:var(--gray);margin-top:0.15rem;">President, Venturis Financial</div>
+        <div class="contact-detail">steve@venturisfinancial.com</div>
+        <div style="font-size:0.75rem;color:var(--gray);margin-top:0.5rem;">For enterprise pricing, implementation scoping, or a direct walkthrough of the platform applied to HUNT's specific structure.</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-role">Self-Serve Live Demo</div>
+        <div class="contact-name">7-Day Demo Access</div>
+        <div style="font-size:0.8rem;color:var(--gray);margin-top:0.15rem;">dashboard.corelytics.com</div>
+        <div class="contact-detail">Affiliate code: SEVENDAYDEMO</div>
+        <div style="font-size:0.75rem;color:var(--gray);margin-top:0.5rem;">Connect HUNT's accounting system. See the consolidated view across all offices. Live data, not sample data. No commitment.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt4">
+    <div class="card-title">What This Decision Is Actually About</div>
+    <div class="two-col" style="gap:1.5rem;">
+      <div>
+        <p class="text-sm" style="color:var(--gray);">HUNT closes nearly 12,000 transaction sides per year across six markets. Every month without consolidated financial visibility is another month where underperforming offices continue drawing overhead undetected, attachment rates erode without triggering a response, and the gap between what the business is actually doing and what Charlie thinks it is doing widens.</p>
+        <p class="text-sm" style="color:var(--gray);">The platform costs $2,400 per year. The problems it surfaces at HUNT's scale are modeled in this brief at $498K, $13.5M, and $1.2M respectively. The math is not close.</p>
+      </div>
+      <div>
+        <p class="text-sm" style="color:var(--gray);">HUNT built a $3.65 billion brokerage over 113 years. The next inflection point is not about adding more agents or opening more offices. It is about running the existing operation with the financial precision that a business at this scale requires. The infrastructure to do that connects to QuickBooks or Dynamics in week one and costs less per year than a single transaction side.</p>
+        <div class="callout mt3" style="margin-top:1rem;">
+          <div class="callout-l" style="font-weight:700;">The cost of waiting is not zero. Every quarter without real-time visibility is a quarter where the gaps in this brief continue compounding.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    Corelytics is a product of Venturis Financial &bull; corelytics.com &bull; Contact: Steve Buck, President of Venturis Financial<br>
+    HUNT Real Estate ERA data: ERA Key Realty Services (2025), RealTrends Verified 2025, Call It Closed (2024)<br>
+    Market data: Redfin (April 2026), Norada Real Estate Investments (2025), Zillow Research (2025)<br>
+    Industry benchmarks: AccountTech Brokerage EBITDA Report H1 2024, National Mortgage Professional (2024), LeanProp (2024), HousingWire (2024)<br>
+    Competitive data: RealTrends Verified 2025, Howard Hanna Corporate (2024)<br>
+    <strong style="color:var(--gray);">All financial projections, models, and scenarios in this brief are estimates based on publicly available industry benchmarks applied to HUNT's known metrics. They do not represent HUNT's actual internal financial data. Labeled throughout as Model Projection.</strong>
+  </p>
+</footer>
+
+<script>
+// Chart.js global defaults
+Chart.defaults.color = '#8a9a9a';
+Chart.defaults.font.family = "Inter, system-ui, sans-serif";
+Chart.defaults.font.size = 11;
+
+const TEAL = '#00D4C8';
+const TEAL_DIM = 'rgba(0,212,200,0.15)';
+const TEAL_FILL = 'rgba(0,212,200,0.08)';
+const RED = '#e05555';
+const RED_DIM = 'rgba(224,85,85,0.15)';
+const GREEN = '#00c896';
+const YELLOW = '#f0c040';
+const GRAY = '#8a9a9a';
+const BORDER = '#1a2424';
+
+// --- CHART 1: Reporting Cost ---
+new Chart(document.getElementById('reportingChart'), {
+  type: 'bar',
+  data: {
+    labels: ['54 Office Managers\n(8 hrs each)', '6 Regional Directors\n(6 hrs each)', 'Finance / CFO Team\n(20 hrs total)'],
+    datasets: [{
+      label: 'Hours Per Month',
+      data: [432, 36, 20],
+      backgroundColor: [RED_DIM, 'rgba(240,192,64,0.15)', TEAL_DIM],
+      borderColor: [RED, YELLOW, TEAL],
+      borderWidth: 1,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.raw} hrs/month — $${(ctx.raw * 85).toLocaleString()}/mo est.`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: BORDER },
+        border: { color: BORDER },
+        ticks: { color: GRAY },
+        title: { display: true, text: 'Hours Per Month', color: GRAY, font: { size: 10 } }
+      },
+      y: {
+        grid: { display: false },
+        border: { color: BORDER },
+        ticks: { color: '#c0cccc', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// --- CHART 2: Attach Rates ---
+new Chart(document.getElementById('attachChart'), {
+  type: 'bar',
+  data: {
+    labels: ['HUNT Mortgage', 'Network Title', 'HUNT Insurance'],
+    datasets: [
+      {
+        label: 'Industry Avg',
+        data: [28, 32, 14],
+        backgroundColor: 'rgba(90,106,106,0.4)',
+        borderColor: GRAY,
+        borderWidth: 1,
+        borderRadius: 3,
+      },
+      {
+        label: 'HUNT Est. Current',
+        data: [35, 40, 18],
+        backgroundColor: 'rgba(240,192,64,0.25)',
+        borderColor: YELLOW,
+        borderWidth: 1,
+        borderRadius: 3,
+      },
+      {
+        label: 'Best-in-Class',
+        data: [65, 68, 38],
+        backgroundColor: TEAL_DIM,
+        borderColor: TEAL,
+        borderWidth: 1,
+        borderRadius: 3,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: { color: GRAY, font: { size: 10 }, padding: 12, boxWidth: 10 }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}% attach rate`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: BORDER },
+        border: { color: BORDER },
+        ticks: { color: '#c0cccc' }
+      },
+      y: {
+        grid: { color: BORDER },
+        border: { color: BORDER },
+        ticks: { color: GRAY, callback: v => v + '%' },
+        max: 80
+      }
+    }
+  }
+});
+
+// --- CHART 3: Agent Distribution ---
+new Chart(document.getElementById('agentChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Top 10%\n(180 agents)', 'Next 10%\n(180 agents)', 'Middle 50%\n(900 agents)', 'Bottom 30%\n(540 agents)'],
+    datasets: [{
+      label: 'Avg Annual Volume per Agent ($M)',
+      data: [11.1, 4.06, 0.893, 0.203],
+      backgroundColor: [TEAL_DIM, 'rgba(0,200,150,0.15)', 'rgba(240,192,64,0.15)', RED_DIM],
+      borderColor: [TEAL, GREEN, YELLOW, RED],
+      borderWidth: 1,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` $${ctx.raw}M avg annual volume per agent`
+        }
+      },
+      annotation: {}
+    },
+    scales: {
+      x: {
+        grid: { color: BORDER },
+        border: { color: BORDER },
+        ticks: { color: '#c0cccc', font: { size: 10 } }
+      },
+      y: {
+        grid: { color: BORDER },
+        border: { color: BORDER },
+        ticks: { color: GRAY, callback: v => '$' + v + 'M' },
+        title: { display: true, text: 'Avg Volume / Agent ($M)', color: GRAY, font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// --- CHART 4: Competitive ---
+new Chart(document.getElementById('compChart'), {
+  type: 'bar',
+  data: {
+    labels: ['eXp Realty', 'Anywhere Advisors', 'Compass', 'Hanna Holdings', 'HUNT ERA'],
+    datasets: [{
+      label: 'Transaction Sides',
+      data: [350119, 246728, 228785, 92154, 11953],
+      backgroundColor: ['rgba(90,106,106,0.3)', 'rgba(90,106,106,0.3)', 'rgba(90,106,106,0.3)', 'rgba(90,106,106,0.3)', TEAL_DIM],
+      borderColor: [GRAY, GRAY, GRAY, GRAY, TEAL],
+      borderWidth: 1,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.raw.toLocaleString()} transaction sides`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: BORDER },
+        border: { color: BORDER },
+        ticks: {
+          color: GRAY,
+          callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'K' : v
+        }
+      },
+      y: {
+        grid: { display: false },
+        border: { color: BORDER },
+        ticks: { color: '#c0cccc' }
+      }
+    }
+  }
+});
+
+// --- CHART 5: 12-Month Projection ---
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+// Monthly weights (seasonal): Q1 light, Q2-Q3 peak, Q4 moderate
+const weights = [0.050, 0.060, 0.070, 0.085, 0.090, 0.095, 0.110, 0.100, 0.090, 0.085, 0.080, 0.085];
+const base = 46.5, best = 48.8, worst = 43.1;
+
+function cumulativeRevenue(annual) {
+  const monthly = weights.map(w => w * annual);
+  const cum = [];
+  let running = 0;
+  monthly.forEach(m => { running += m; cum.push(parseFloat(running.toFixed(2))); });
+  return cum;
+}
+
+new Chart(document.getElementById('projChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Best Case (+8.5%)',
+        data: cumulativeRevenue(best),
+        borderColor: GREEN,
+        backgroundColor: 'rgba(0,200,150,0.06)',
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: GREEN,
+        fill: false,
+        tension: 0.3,
+      },
+      {
+        label: 'Base Case',
+        data: cumulativeRevenue(base),
+        borderColor: TEAL,
+        backgroundColor: TEAL_FILL,
+        borderWidth: 2.5,
+        pointRadius: 3,
+        pointBackgroundColor: TEAL,
+        fill: '-1',
+        tension: 0.3,
+      },
+      {
+        label: 'Worst Case (-7.3%)',
+        data: cumulativeRevenue(worst),
+        borderColor: RED,
+        backgroundColor: RED_DIM,
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: RED,
+        fill: false,
+        tension: 0.3,
+        borderDash: [5, 3],
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: { color: GRAY, font: { size: 10 }, padding: 16, boxWidth: 12 }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.dataset.label}: $${ctx.raw.toFixed(1)}M cumulative`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: BORDER },
+        border: { color: BORDER },
+        ticks: { color: GRAY }
+      },
+      y: {
+        grid: { color: BORDER },
+        border: { color: BORDER },
+        ticks: {
+          color: GRAY,
+          callback: v => '$' + v.toFixed(0) + 'M'
+        },
+        title: { display: true, text: 'Cumulative Brokerage Revenue ($M)', color: GRAY, font: { size: 10 } }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
